@@ -1,0 +1,45 @@
+version: 2
+
+sources:
+  - name: tpch
+    database: snowflake_sample_data
+    schema: tpch_sf1
+    tables:
+      - name: orders
+        columns:
+          - name: o_orderkey
+            tests:
+              - unique
+              - not_null
+      - name: lineitem
+        columns:
+          - name: l_orderkey
+            tests:
+              - relationships:
+                  to: source('tpch','orders')
+                  field: o_orderkey
+  - name: subway_data
+    database: dbt_db
+    schema: dbt_schema
+    tables:
+      - name: subway_locations
+      
+  - name: apartment_data
+    database: dbt_db
+    schema: dbt_schema
+    tables:
+      - name: apartment_listings
+  - name: neighborhood_data
+    database: dbt_db
+    schema: dbt_schema
+    tables:
+      - name: neighborhood_safety
+
+  - name: my_model
+    config:
+      materialized: table
+      #target_name: "{{ target.name }}"
+      #specific_var: "{{ var('SPECIFIC_VAR') }}"
+      #specific_env_var: "{{ env_var('SPECIFIC_ENV_VAR') }}"
+
+
