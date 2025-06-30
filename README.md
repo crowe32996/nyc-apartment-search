@@ -94,7 +94,7 @@ Future iterations will provide additional API request limit handling, to incorpo
 
 Explore the interactive Looker Studio dashboard:
 
-🔗 **[View the NYC Apartment Search Dashboard](https://lookerstudio.google.com/reporting/your-public-dashboard-link)**
+🔗 **[View the NYC Apartment Search Dashboard](https://lookerstudio.google.com/u/0/reporting/9044b3e3-d3e2-41a0-b329-0b4d23c04764)**
 
 ### Features:
 - **Adjustable weights** for key apartment factors like rent, square footage, safety, distance to subway, and distance to downtown
