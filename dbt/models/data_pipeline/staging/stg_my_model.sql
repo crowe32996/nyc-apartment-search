@@ -1,5 +1,5 @@
 select
     *
 from
-    {{ref('my_model')}}
+    {{ ref('apartment_scores') }}
 where APARTMENT_SCORE IS NOT NULL
