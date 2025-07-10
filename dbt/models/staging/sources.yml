@@ -11,7 +11,7 @@ sources:
     database: dbt_db
     schema: dbt_schema
     tables:
-      - name: apartment_listings2
+      - name: apartment_listings
   - name: neighborhood_data
     database: dbt_db
     schema: dbt_schema

@@ -12,6 +12,6 @@ select
     location_address_state_code as STATE,
     photos as PHOTOS
 from
-    {{source('apartment_data','apartment_listings2')}} 
+    {{source('apartment_data','apartment_listings')}} 
 WHERE
     LIST_PRICE <= 20000 AND SQFT <= 6000

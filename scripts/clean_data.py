@@ -3,7 +3,7 @@ import os
 
 SEEDS_FOLDER = "C:/Users/peppe/OneDrive/Desktop/Charlie/Data_Projects/nyc-apartment-search/dbt/seeds"
 
-# EXACT columns to keep for apartment_listings2.csv
+# EXACT columns to keep for apartment_listings.csv
 COLUMNS_TO_KEEP = [
     "property_id",
     "listing_id",
@@ -53,7 +53,7 @@ for filename in os.listdir(SEEDS_FOLDER):
         # Clean column names: replace dots, dashes, spaces with underscores
         df.columns = [col.replace(".", "_").replace("-", "_").replace(" ", "_") for col in df.columns]
 
-        if filename == "apartment_listings2.csv":
+        if filename == "apartment_listings.csv":
             # Filter columns to only those in COLUMNS_TO_KEEP and present in df
             cols_to_use = [col for col in COLUMNS_TO_KEEP if col in df.columns]
             df = df[cols_to_use]
@@ -61,6 +61,6 @@ for filename in os.listdir(SEEDS_FOLDER):
             # Filter rows where description_sqft is populated (not null/empty)
             df = df[df["description_sqft"].notnull() & (df["description_sqft"].astype(str).str.strip() != "")]
 
-        # Save back cleaned (and filtered if apartment_listings2.csv)
+        # Save back cleaned (and filtered if apartment_listings.csv)
         df.to_csv(filepath, index=False)
         print(f"Processed {filename}")

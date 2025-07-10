@@ -10,8 +10,11 @@ set /p runAPI="Would you like to refresh apartment listings from the API? (y/n):
 if /i "%runAPI%"=="y" (
     echo Running Realtor.com API ingestion script...
     python scripts\realtor_api_pull.py
+
+    echo Cleaning apartment listings data...
+    python scripts\clean_data.py
 ) else (
-    echo Skipping API ingestion step.
+    echo Skipping API ingestion and cleaning step.
 )
 
 echo Changing directory to dbt...
