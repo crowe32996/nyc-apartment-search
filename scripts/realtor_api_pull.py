@@ -7,7 +7,7 @@ load_dotenv()
 
 API_HOST = "realtor-search.p.rapidapi.com"
 API_KEY = os.getenv("RAPIDAPI_KEY")
-OUTPUT_FILE = r"C:\Users\peppe\OneDrive\Desktop\Charlie\Data_Projects\nyc-apartment-search\dbt\seeds\apartment_listings3.csv"
+OUTPUT_FILE = r"C:\Users\peppe\OneDrive\Desktop\Charlie\Data_Projects\nyc-apartment-search\dbt\seeds\apartment_listings.csv"
 
 RESULTS_PER_PAGE = 200
 MAX_PAGES = 100  # max safety limit, adjust as needed

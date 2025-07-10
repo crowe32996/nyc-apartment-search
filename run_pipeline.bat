@@ -5,6 +5,15 @@ call venv\Scripts\activate
 echo Installing Python dependencies...
 pip install -r requirements.txt
 
+:: Prompt user to optionally run the API ingestion
+set /p runAPI="Would you like to refresh apartment listings from the API? (y/n): "
+if /i "%runAPI%"=="y" (
+    echo Running Realtor.com API ingestion script...
+    python scripts\realtor_api_pull.py
+) else (
+    echo Skipping API ingestion step.
+)
+
 echo Changing directory to dbt...
 cd dbt
 
@@ -21,3 +30,4 @@ echo Step 4: Running dbt again to build final models...
 dbt run
 
 echo All done! Apartment pipeline finished.
+pause

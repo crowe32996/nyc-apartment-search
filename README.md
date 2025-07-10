@@ -10,16 +10,12 @@ This project provides a dynamic apartment search dashboard for NYC and surroundi
 - Snowflake and dbt for data warehousing and transformations
 - Looker Studio dashboard for interactive exploration and weighing of apartment factors
 
-Note that in order to manage API request limits, the search is limited to the following pre-filtering:
+The initial API search is limited to the following pre-filtering:
 
-- 2+ bedrooms
-- 1+ bathroom
-- 900+ Square Feet
-- Between $4000 and $8000 per month (arbitrarily chosen as wide range for most 2+ bedroom units, will adjust as I include studio and 1 bedroom apartments in the future)
+- 300+ Square Feet
 - Within 5 mi radius of Downtown Brooklyn (arbitrarily chosen as somewhat central across all five boroughs and surrounding cities)
-- Washer/dryer in the building
 
-Future iterations will provide additional API request limit handling, to incorporate studio and 1 bedroom apartments, and to allow the user to  filter for factors such as washer/dryer, outdoor space, etc.
+Future iterations will provide additional filters for factors such as washer/dryer, outdoor space, etc, include a data model visualization,  implement dbt tests, and store historical data to view listing trends over time.
 ---
 
 ## Features
@@ -38,7 +34,7 @@ Future iterations will provide additional API request limit handling, to incorpo
 
 - Python 3.8+
 - [Snowflake account](https://www.snowflake.com/)
-- Access to Realtor.com API (via RapidAPI)
+- Access Key to Realtor.com API (via RapidAPI) saved as environment variable
 - Looker Studio (Google account)
 
 ### Setup
@@ -51,44 +47,35 @@ Future iterations will provide additional API request limit handling, to incorpo
     ```
 
 
-2. Create and activate a virtual environment
+2. Run the full pipeline with one command
     
     ```bash
-    python -m venv venv
-
-    # To activate on macOS/Linux:
-    source venv/bin/activate
-
-    # To activate on Windows CMD:
-    venv\Scripts\activate.bat
-
-    # To activate on Windows PowerShell:
-    .\venv\Scripts\Activate.ps1
+    run_pipeline.bat
     ```
+    You’ll be prompted to optionally re-run the Realtor.com API script. The option to keep current apartment_listings.csv in seeds allows for avoiding hitting API limits. 
 
-3. Install dependencies
+    This script will:
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+    - Activate the virtual environment
 
-4. Configure Snowflake Credentials
+    - Optionally refresh Realtor API apartment listings
 
-    Set your Snowflake connection info as environment variables or in a config file.
+    - Install required Python libraries
 
-5. Run the API ingestion script to fetch apartment listings
+    - Run dbt to refresh staging models
 
-    ```bash
-    python realtor_api_pull.py
-    ```
+    - Generate apartment scores table
 
-6. Run dbt transformations
+    - Seed new CSV data into Snowflake
 
-    ```bash
-    dbt run
-    ```
+    - Run final dbt models to build dimensions
 
-7. Open the Looker Studio dashboard and connect to your Snowflake data
+3. Configure Snowflake and RapidAPI Credentials
+
+    Set your Snowflake connection info as environment variables or in your .dbt/profiles.yml file.
+
+4. Open the Looker Studio dashboard and connect to your Snowflake data
+
 
 ## 📊 NYC Apartments Dashboard
 
