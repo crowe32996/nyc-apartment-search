@@ -1,9 +1,9 @@
 select
     listing_id AS LISTING_ID, 
-    list_price as LIST_PRICE,
+    cast(list_price as numeric) as LIST_PRICE,
     href as HREF, 
     details as DETAILS,
-    description_sqft as SQFT,
+    cast(description_sqft as int) as SQFT,
     location_address_postal_code as POSTAL_CODE,
     location_address_coordinate_lat as LATITUDE,
     location_address_coordinate_lon as LONGITUDE,
@@ -13,3 +13,5 @@ select
     photos as PHOTOS
 from
     {{source('apartment_data','apartment_listings2')}} 
+WHERE
+    LIST_PRICE <= 20000 AND SQFT <= 6000

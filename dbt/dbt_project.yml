@@ -39,12 +39,3 @@ models:
     marts:
       +materialized: table
       snowflake_warehouse: dbt_wh
-  my_project:
-    my_model:
-      materialized: table
-      python:
-        python_interpreter: "C:/Users/peppe/OneDrive/Desktop/DBT Project/data_pipeline/venv/Scripts/python.exe"        
-        packages:
-          - pandas
-          - numpy
-          - scikit-learn
