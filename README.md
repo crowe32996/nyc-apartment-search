@@ -1,5 +1,10 @@
 # NYC Apartment Search Dashboard
 
+Explore the interactive Looker Studio dashboard:
+
+🔗 **[View the NYC Apartment Search Dashboard](https://lookerstudio.google.com/u/0/reporting/9044b3e3-d3e2-41a0-b329-0b4d23c04764)**
+![Full Dashboard](images/lookerstudio_nyc_apartments.png)
+
 ## Overview
 
 This project provides a dynamic apartment search dashboard for NYC and surrounding areas. The end-to-end pipeline integrates the following:
@@ -77,12 +82,6 @@ Future iterations will provide additional filters for factors such as washer/dry
 4. Open the Looker Studio dashboard and connect to your Snowflake data
 
 
-## 📊 NYC Apartments Dashboard
-
-Explore the interactive Looker Studio dashboard:
-
-🔗 **[View the NYC Apartment Search Dashboard](https://lookerstudio.google.com/u/0/reporting/9044b3e3-d3e2-41a0-b329-0b4d23c04764)**
-
 ### Features:
 - **Adjustable weights** for key apartment factors like rent, square footage, safety, distance to subway, and distance to downtown
 - **Real-time filtering** by price range, neighborhood, and features
@@ -90,18 +89,13 @@ Explore the interactive Looker Studio dashboard:
 - **Interactive tables** with apartment previews, links, and normalized scores
 
 
-### Full Dashboard
-
-![Full Dashboard](images/lookerstudio_nyc_apartments.png)
-
 ### Additional Screenshots:
 
 | Apartment Ranking Table | Neighborhood Summary |
 |-------------------------|----------------------|
 | ![Ranked Listings](images/apartment_listings.png) | ![Neighborhood Averages](images/neighborhood_avgs.png) |
 
-> 📌 To keep this working smoothly, periodically update the Snowflake extract or re-run the API ingestion script.
-
+> To keep this working smoothly, periodically update the Snowflake extract or re-run the API ingestion script.
 
 ---
 
