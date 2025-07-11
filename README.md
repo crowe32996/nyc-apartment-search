@@ -2,7 +2,7 @@
 
 Explore the interactive Looker Studio dashboard:
 
-🔗 **[View the NYC Apartment Search Dashboard](https://lookerstudio.google.com/u/0/reporting/9044b3e3-d3e2-41a0-b329-0b4d23c04764)**
+**[NYC Apartment Search Dashboard](https://lookerstudio.google.com/u/0/reporting/9044b3e3-d3e2-41a0-b329-0b4d23c04764)**
 ![Full Dashboard](images/lookerstudio_nyc_apartments.png)
 
 ## Overview
@@ -13,7 +13,7 @@ This project provides a dynamic apartment search dashboard for NYC and surroundi
 - Safety data by zip code (static CSV)
 - Subway location data (static CSV)
 - Snowflake and dbt for data warehousing and transformations
-- Looker Studio dashboard for interactive exploration and weighing of apartment factors
+- Looker Studio dashboard for interactive exploration, weighing of apartment factors, and direct links to live listings
 
 The initial API search is limited to the following pre-filtering:
 
@@ -95,15 +95,7 @@ Future iterations will provide additional filters for factors such as washer/dry
 |-------------------------|----------------------|
 | ![Ranked Listings](images/apartment_listings.png) | ![Neighborhood Averages](images/neighborhood_avgs.png) |
 
-> To keep this working smoothly, periodically update the Snowflake extract or re-run the API ingestion script.
-
----
-
-## Contributing
-
-Contributions welcome! Please open an issue or submit a pull request.
-
----
+> To keep this working smoothly, periodically update the Snowflake extract or re-run the API 
 
 ## License
 
