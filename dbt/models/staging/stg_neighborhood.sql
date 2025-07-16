@@ -1,6 +1,6 @@
 select
-    location_address_postal_code as postal_code,
+    LPAD(CAST(location_address_postal_code AS STRING), 5, '0') AS POSTAL_CODE,
     SAFETY_SCORE_LETTER_GRADE,
     SAFETY_PCT
 from
-    {{source('neighborhood_data','zipcodes_safety_grades_nyc')}} 
+    {{source('neighborhood_data','raw_neighborhood_data')}} 

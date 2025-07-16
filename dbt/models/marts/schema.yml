@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: dim_apartment
+    description: Dimension table for apartments
+    columns:
+      - name: LISTING_ID
+        tests:
+          - unique
+          - not_null
+      - name: LIST_PRICE
+        tests:
+          - not_null
+      - name: SQFT
+        tests:
+          - not_null
+      - name: LATITUDE
+        tests:
+          - not_null
+      - name: LONGITUDE
+        tests:
+          - not_null
+
+  - name: dim_neighborhood
+    description: Dimension table for NYC neighborhoods
+    columns:
+      - name: postal_code
+        tests:
+          - unique
+          - not_null
+      - name: SAFETY_PCT
+        tests:
+          - not_null
+
+  - name: dim_subway
+    description: Dimension table for subway locations
+    columns:
+      - name: SUBWAY_ID
+        tests:
+          - unique
+          - not_null
+      - name: STATION_LATITUDE
+        tests:
+          - not_null
+      - name: STATION_LONGITUDE
+        tests:
+          - not_null

@@ -75,6 +75,10 @@ def main():
     apartment_df["FULL_BATHROOMS"] = apartment_df["DETAILS"].apply(extract_full_bathrooms)
     apartment_df["TOTAL_BATHROOMS"] = apartment_df["DETAILS"].apply(extract_total_bathrooms)
 
+    apartment_df["BEDROOMS"] = pd.to_numeric(apartment_df['BEDROOMS'], errors='coerce')
+    apartment_df["FULL_BATHROOMS"] = pd.to_numeric(apartment_df['FULL_BATHROOMS'], errors='coerce')
+    apartment_df["TOTAL_BATHROOMS"] = pd.to_numeric(apartment_df['TOTAL_BATHROOMS'], errors='coerce')
+
     # Prepare BallTree and calculate distances
     subway_coords = np.deg2rad(subway_df[["STATION_LATITUDE", "STATION_LONGITUDE"]].values)
     bt = BallTree(subway_coords, metric="haversine")
@@ -94,6 +98,14 @@ def main():
     apartment_df["SUBWAY_ID"] = subway_df.iloc[indices.flatten()]["SUBWAY_ID"].values
     apartment_df["CLOSEST_SUBWAY_DIST"] = distances_miles
     apartment_df["DOWNTOWN_DIST"] = distances_specific_miles
+
+    apartment_df["POSTAL_CODE"] = apartment_df["POSTAL_CODE"].apply(
+        lambda x: str(int(x)).zfill(5) if pd.notnull(x) and str(x).isdigit() else None
+    )
+
+    neighborhood_df["POSTAL_CODE"] = neighborhood_df["POSTAL_CODE"].apply(
+        lambda x: str(int(x)).zfill(5) if pd.notnull(x) and str(x).isdigit() else None
+    )
 
     # Merge neighborhood and images info
     merged_df = apartment_df.merge(neighborhood_df, on="POSTAL_CODE", how="left")
@@ -121,9 +133,48 @@ def main():
     max_score = merged_df["APARTMENT_SCORE"].max()
     merged_df["APARTMENT_SCORE"] = (merged_df["APARTMENT_SCORE"] - min_score) / (max_score - min_score)
 
+    fct_scores_df = merged_df[[
+        "LISTING_ID", "SUBWAY_ID", "POSTAL_CODE",
+        "DOWNTOWN_DIST", "CLOSEST_SUBWAY_DIST", "APARTMENT_SCORE",
+        "NORM_LIST_PRICE", "NORM_SQFT", "NORM_DOWNTOWN_DIST",
+        "NORM_SAFETY_PCT", "NORM_CLOSEST_SUBWAY_DIST"
+    ]]
+
     # Save to CSV for dbt seed
-    merged_df.to_csv("seeds/apartment_scores.csv", index=False)
-    print("Generated apartment_scores.csv in dbt/seeds folder")
+    session.write_pandas(fct_scores_df, "FCT_APARTMENT_SCORES", auto_create_table=True, overwrite=True)
+    print("Generated FCT_APARTMENT_SCORES table in dbt_schema")
+    #fct_scores_df.to_csv("seeds/apartment_scores.csv", index=False)
+    #print("Generated apartment_scores.csv in dbt/seeds folder")
+
+    dim_apartment_df = apartment_df.copy()
+
+    dim_apartment_df['BEDROOMS'] = apartment_df['BEDROOMS']
+    dim_apartment_df['FULL_BATHROOMS'] = apartment_df['FULL_BATHROOMS']
+    dim_apartment_df['TOTAL_BATHROOMS'] = apartment_df['TOTAL_BATHROOMS']
+  
+    # Select only descriptive columns for the dim (adjust columns as needed)
+    dim_apartment_df = dim_apartment_df[[
+        "LISTING_ID",
+        "POSTAL_CODE",
+        "LATITUDE",
+        "LONGITUDE",
+        "ADDRESS",
+        "CITY",
+        "STATE",
+        "LIST_PRICE",
+        "SQFT",
+        "HREF",
+        "PHOTOS",
+        "DETAILS",
+        "BEDROOMS",
+        "FULL_BATHROOMS",
+        "TOTAL_BATHROOMS"
+    ]]
+
+    # Write dim_apartment table to Snowflake (overwrite if exists)
+    session.write_pandas(dim_apartment_df, "DIM_APARTMENT", auto_create_table=True, overwrite=True)
+    print("Generated DIM_APARTMENT table in dbt_schema")
+
 
 if __name__ == "__main__":
     main()

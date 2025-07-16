@@ -4,4 +4,4 @@ select
     station_latitude as STATION_LATITUDE,
     station_longitude as STATION_LONGITUDE
 from
-    {{source('subway_data','nyc_transit_data')}} 
+    {{source('subway_data','raw_subway_data')}} 

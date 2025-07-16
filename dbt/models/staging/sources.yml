@@ -5,24 +5,25 @@ sources:
     database: dbt_db
     schema: dbt_schema
     tables:
-      - name: nyc_transit_data
+      - name: raw_subway_data
       
   - name: apartment_data
     database: dbt_db
     schema: dbt_schema
     tables:
-      - name: apartment_listings
+      - name: raw_apartment_data
+
   - name: neighborhood_data
     database: dbt_db
     schema: dbt_schema
     tables:
-      - name: zipcodes_safety_grades_nyc
+      - name: raw_neighborhood_data
 
-#  - name: my_model
-#    config:
-#      materialized: table
-      #target_name: "{{ target.name }}"
-      #specific_var: "{{ var('SPECIFIC_VAR') }}"
-      #specific_env_var: "{{ env_var('SPECIFIC_ENV_VAR') }}"
+  - name: apartment_data_transformed
+    database: dbt_db
+    schema: dbt_schema
+    tables:
+      - name: dim_apartment
+      - name: fct_apartment_scores
 
 
