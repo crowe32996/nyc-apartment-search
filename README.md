@@ -47,7 +47,7 @@ Future iterations will provide additional filters for factors such as washer/dry
 1. Clone the repository
 
     ```bash
-   git clone https://github.com/yourusername/nyc-apartment-search.git
+   git clone https://github.com/crowe32996/nyc-apartment-search.git
    cd nyc-apartment-search
     ```
 
