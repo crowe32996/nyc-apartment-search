@@ -15,9 +15,15 @@ GRANT USAGE ON WAREHOUSE dbt_wh TO ROLE dbt_role;
 
 CREATE DATABASE IF NOT EXISTS DBT_DB;
 CREATE SCHEMA IF NOT EXISTS dbt_schema;
-SELECT * FROM MY_MODEL
 
 -- Grant usage on database (assuming you already recreated your apartment hunt DB)
 GRANT USAGE ON DATABASE dbt_db TO ROLE dbt_role;
 GRANT USAGE ON SCHEMA dbt_schema TO ROLE dbt_role;
 GRANT ALL PRIVILEGES ON SCHEMA dbt_schema TO ROLE dbt_role;
+
+-- Create the stage
+CREATE STAGE IF NOT EXISTS MY_CSV_STAGE;
+
+-- Grant permissions (if using a custom role like DBT_ROLE)
+GRANT READ, WRITE ON STAGE MY_CSV_STAGE TO ROLE DBT_ROLE;
+
