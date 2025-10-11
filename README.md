@@ -15,6 +15,8 @@ This project provides a dynamic apartment search dashboard for NYC and surroundi
 - Snowflake and dbt for data warehousing and transformations
 - Looker Studio dashboard for interactive exploration, weighing of apartment factors, and direct links to live listings
 
+![Pipeline Architecture](images/architecture_diagram.png)
+
 The initial API search is limited to the following pre-filtering:
 
 - 300+ Square Feet
