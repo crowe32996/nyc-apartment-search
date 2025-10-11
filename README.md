@@ -20,7 +20,6 @@ The initial API search is limited to the following pre-filtering:
 - 300+ Square Feet
 - Within 5 mi radius of Downtown Brooklyn (arbitrarily chosen as somewhat central across all five boroughs and surrounding cities)
 
-Future iterations will provide additional filters for factors such as washer/dryer, outdoor space, etc, include a data model visualization,  implement dbt tests, and store historical data to view listing trends over time.
 ---
 
 ## Features
