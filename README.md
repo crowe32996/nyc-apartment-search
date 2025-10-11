@@ -3,7 +3,7 @@
 Explore the interactive Looker Studio dashboard:
 
 **[NYC Apartment Search Dashboard](https://lookerstudio.google.com/u/0/reporting/9044b3e3-d3e2-41a0-b329-0b4d23c04764)**
-![Full Dashboard](images/lookerstudio_nyc_apartments.png)
+![Full Dashboard](images/lookerstudio_nyc_apartments2.png)
 
 ## Overview
 
