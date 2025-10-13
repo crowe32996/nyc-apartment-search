@@ -25,5 +25,10 @@ sources:
     tables:
       - name: dim_apartment
       - name: fct_apartment_scores
+  - name: airbyte
+    database: dbt_db
+    schema: dbt_schema
+    tables:
+      - name: listings
 
 

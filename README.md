@@ -52,36 +52,64 @@ The initial API search is limited to the following pre-filtering:
    cd nyc-apartment-search
     ```
 
+2. Set up Airbyte ingestion layer. 
 
-2. Run the full pipeline with one command
+    A. Install Airbyte locally
+    ```bash
+    curl -sL https://airbyte.io/install.sh | bash
+    abctl local install
+    abctl local connect
+    ```
+
+    Then open Airbyte UI at http://localhost:8000
+
+    B. Create the Realtor.com API Source
+
+    In the left sidebar, go to Builder → New Connector. Select Custom Connector and API Source. Add RapidAPI Realtor.com endpoint (https://realtor16.p.rapidapi.com//properties/search-rent). Under Headers, include your API key:
+
+    C. Create the Snowflake Destination
+
+    From the sidebar, choose Destinations → New Destination → Snowflake. Enter your Snowflake credentials. If using snowflake_setup.sql on your Snowflake account, update for your username and account info, and enter the following:
+
+    Warehouse: dbt_wh
+    Database: dbt_db
+    Schema: dbt_schema
+    Role: dbt_role
+
+    D. Connect Source → Destination
+
+    Go to Connections → New Connection. Choose your Realtor.com API source and Snowflake destination. Set the sync mode to refresh however frequently you see fit.
+
+    Run initial refresh.
+
+3. Run the rest of the pipeline with one command
     
     ```bash
     run_pipeline.bat
     ```
-    You’ll be prompted to optionally re-run the Realtor.com API script. The option to keep current apartment_listings.csv in seeds allows for avoiding hitting API limits. 
 
     This script will:
 
     - Activate the virtual environment
 
-    - Optionally refresh Realtor API apartment listings
-
     - Install required Python libraries
 
-    - Run dbt to refresh staging models
+    - Run dbt to run transformations, cleaning raw apartment output from Airbyte, seeding data sources and transforming into schema structure
 
-    - Generate apartment scores table
-
-    - Seed new CSV data into Snowflake
-
-    - Run final dbt models to build dimensions
-
-3. Configure Snowflake and RapidAPI Credentials
+4. Configure Snowflake and RapidAPI Credentials
 
     Set your Snowflake connection info as environment variables or in your .dbt/profiles.yml file.
 
-4. Open the Looker Studio dashboard and connect to your Snowflake data
+5. Open the Looker Studio dashboard and connect to your Snowflake data
 
+    Open the Looker Studio dashboard:
+
+    [NYC Apartment Search Dashboard](https://lookerstudio.google.com/u/0/reporting/9044b3e3-d3e2-41a0-b329-0b4d23c04764/page/N06DF)
+
+    In Looker Studio:
+    1. Click **File → Make a Copy**
+    2. Under **Data Source**, choose your Snowflake connection (matching the schema built by dbt)
+    3. Now your data warehouse is connected to Looker Studio and you can add any additional features.
 
 ### Features:
 - **Adjustable weights** for key apartment factors like rent, square footage, safety, distance to subway, and distance to downtown

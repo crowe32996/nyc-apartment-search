@@ -1,0 +1,21 @@
+{
+  "documentationUrl": "https://rapidapi.com/",
+  "connectionSpecification": {
+    "type": "object",
+    "required": ["api_key"],
+    "properties": {
+      "api_key": {
+        "type": "string",
+        "title": "RapidAPI Key",
+        "description": "Your RapidAPI key for Realtor.com",
+        "airbyte_secret": true
+      },
+      "location": {
+        "type": "string",
+        "title": "Location",
+        "default": "11201",
+        "description": "Postal code or city to pull listings from"
+      }
+    }
+  }
+}
