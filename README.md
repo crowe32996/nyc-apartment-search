@@ -20,7 +20,7 @@ This project provides a dynamic apartment search dashboard for NYC and surroundi
 The initial API search is limited to the following pre-filtering:
 
 - 300+ Square Feet
-- Within 5 mi radius of Downtown Brooklyn (arbitrarily chosen as somewhat central across all five boroughs and surrounding cities)
+- Within 5 mi radius of Downtown Brooklyn (chosen as central across all five boroughs and surrounding cities)
 
 ---
 
@@ -65,16 +65,28 @@ The initial API search is limited to the following pre-filtering:
 
     B. Create the Realtor.com API Source
 
-    In the left sidebar, go to Builder → New Connector. Select Custom Connector and API Source. Add RapidAPI Realtor.com endpoint (https://realtor16.p.rapidapi.com//properties/search-rent). Under Headers, include your API key:
+    In the left sidebar, go to Builder → New Connector. Select Custom Connector and API Source. Add RapidAPI Realtor.com base URL (https://realtor-search.p.rapidapi.com). Under Headers, include your API key.
+
+    C. Create new Stream, with:
+    - URL Path: /properties/search-rent
+    - Field Path: data, results (to get nested JSON)
+    - Pagination (optional)
+    - Query Parameters (optional)
+
+    For Query Parameters, as an example, I provided for best matches within 5 miles of postal code 11201 with at least 300 square feet:
+    - Keys: sortBy, homeSize, location, expandSearchArea
+    - Values: best_match, 300, postal_code:11201, 5
+
+    Publish this Stream so it can be recognized as a Source to connect to future destination. 
 
     C. Create the Snowflake Destination
 
     From the sidebar, choose Destinations → New Destination → Snowflake. Enter your Snowflake credentials. If using snowflake_setup.sql on your Snowflake account, update for your username and account info, and enter the following:
 
-    Warehouse: dbt_wh
-    Database: dbt_db
-    Schema: dbt_schema
-    Role: dbt_role
+    - Warehouse: dbt_wh
+    - Database: dbt_db
+    - Schema: dbt_schema
+    - Role: dbt_role
 
     D. Connect Source → Destination
 
