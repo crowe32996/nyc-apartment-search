@@ -79,7 +79,7 @@ The initial API search is limited to the following pre-filtering:
 
     Publish this Stream so it can be recognized as a Source to connect to future destination. 
 
-    C. Create the Snowflake Destination
+    D. Create the Snowflake Destination
 
     From the sidebar, choose Destinations → New Destination → Snowflake. Enter your Snowflake credentials. If using snowflake_setup.sql on your Snowflake account, update for your username and account info, and enter the following:
 
@@ -88,7 +88,7 @@ The initial API search is limited to the following pre-filtering:
     - Schema: dbt_schema
     - Role: dbt_role
 
-    D. Connect Source → Destination
+    E. Connect Source → Destination
 
     Go to Connections → New Connection. Choose your Realtor.com API source and Snowflake destination. Set the sync mode to refresh however frequently you see fit.
 
@@ -113,8 +113,6 @@ The initial API search is limited to the following pre-filtering:
     Set your Snowflake connection info as environment variables or in your .dbt/profiles.yml file.
 
 5. Open the Looker Studio dashboard and connect to your Snowflake data
-
-    Open the Looker Studio dashboard:
 
     [NYC Apartment Search Dashboard](https://lookerstudio.google.com/u/0/reporting/9044b3e3-d3e2-41a0-b329-0b4d23c04764/page/N06DF)
 
